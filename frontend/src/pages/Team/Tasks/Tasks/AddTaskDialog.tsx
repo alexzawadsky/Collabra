@@ -101,6 +101,7 @@ const AddTaskDialog = ({
             }}
             disabled={!canSave}
             closeOnSuccess
+            isCover
         >
             <Form>
                 <Input must title={t('title')} instance={title} />

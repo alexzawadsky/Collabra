@@ -7,6 +7,7 @@ import { ButtonProps } from '../Button'
 import useScreenSize from '../../hooks/useScreenSize'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../../../tailwind.config'
+import cn from 'classnames'
 
 export interface DialogWindowProps {
     icon?: React.ReactElement | React.ReactNode
@@ -25,6 +26,7 @@ export interface DialogWindowProps {
     onSuccess?: (() => void) | (() => Promise<void>)
     disabled?: boolean
     children?: React.ReactNode
+    isCover?: boolean
 }
 
 const DialogWindow = ({
@@ -44,6 +46,7 @@ const DialogWindow = ({
     closeOnSuccess,
     disabled,
     children,
+    isCover,
 }: DialogWindowProps): React.ReactElement => {
     const { t } = useTranslation()
     const { isTablet } = useScreenSize()
@@ -129,7 +132,12 @@ const DialogWindow = ({
                         animate={{ scale: 1 }}
                         exit={{ scale: 1.15 }}
                         transition={{ duration: duration / 1000 }}
-                        className="max-h-[85dvh] md:max-h-[90dvh] bg-white dark:bg-slate-900 overflow-y-auto dialog w-11/12 max-w-2xl md:w-full max-md:-translate-y-nav-half md:translate-x-nav-half shadow-2xl rounded-lg overflow-hidden"
+                        className={cn(
+                            isCover
+                                ? 'max-md:min-h-slot md:rounded-lg'
+                                : 'rounded-lg max-md:w-11/12',
+                            'max-h-slot md:max-h-[90dvh] bg-white dark:bg-slate-900 overflow-y-auto max-w-2xl w-full max-md:-translate-y-nav-half md:translate-x-nav-half shadow-2xl overflow-hidden'
+                        )}
                         ref={dialogRef}
                     >
                         <div className="flex gap-5 items-center w-full fixed:top-0 p-7 pb-3 sticky top-0 bg-white dark:bg-slate-900">

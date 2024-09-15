@@ -15,6 +15,7 @@ import TaskTag from '../TaskTag'
 import TaskStats from '../TaskStats'
 import TaskSteps from '../TaskSteps'
 import TaskMenu from '../TaskMenu'
+import useProfilePath from '../../../../../hooks/useProfilePath'
 
 interface CardProps {
     task: Task
@@ -135,10 +136,13 @@ const TaskCard = ({ task }: CardProps) => {
                         : 'max-h-0 py-0 opacity-0'
                 )}
             >
-                <div className="flex items-center gap-3 font-semibold text-gray-600 dark:text-gray-400 mr-auto">
+                <Link
+                    to={useProfilePath(task.assignee.user.id)}
+                    className="flex items-center gap-3 font-semibold text-gray-600 dark:text-gray-400 mr-auto"
+                >
                     <Avatar user={task.assignee.user} />
                     {task.assignee.user.first_name}
-                </div>
+                </Link>
                 <TaskStats task={task} />
             </div>
         </li>

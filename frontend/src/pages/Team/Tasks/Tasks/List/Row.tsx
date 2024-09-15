@@ -7,6 +7,7 @@ import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import TaskMenu from '../TaskMenu'
 import { getStatusColor } from '../../../../../utils'
+import useProfilePath from '../../../../../hooks/useProfilePath'
 
 const TaskRow = ({ task }: { task: Task }) => {
     const { t } = useTranslation()
@@ -32,10 +33,13 @@ const TaskRow = ({ task }: { task: Task }) => {
                     ></span>
                     {t(task.status)}
                 </div>
-                <div className="flex items-center gap-3">
+                <Link
+                    to={useProfilePath(task.assignee.user.id)}
+                    className="flex items-center gap-3 w-fit"
+                >
                     <Avatar user={task.assignee.user} />
                     {task.assignee.user.first_name}
-                </div>
+                </Link>
                 <TaskStats task={task} />
                 <TaskMenu task={task} />
             </div>

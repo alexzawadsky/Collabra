@@ -83,7 +83,7 @@ const Column = ({ canAdd = true, status, moveColumn, index }: ColumnProps) => {
                     icon={<IoTrashOutline />}
                     description={t('clear_col_dialog_desc')}
                     onSuccess={() => deleteTasks({ status: status })}
-                    successButtonText={t('delete')}
+                    successButtonText={t('clear')}
                     closeOnSuccess
                 />
             </div>
