@@ -5,7 +5,13 @@ import { User } from '../../types'
 
 export interface AvatarProps {
     className?: string
-    size?: 'sidebar' | 'profile' | 'settings' | 'task' | string
+    size?:
+        | 'sidebar'
+        | 'profile'
+        | 'settings'
+        | 'task'
+        | 'assigneeOption'
+        | string
     square?: boolean
     style?: { string: any }
     user: User
@@ -32,6 +38,9 @@ const Avatar = ({
             break
         case 'task':
             w = 30
+            break
+        case 'assigneeOption':
+            w = 24
             break
         default:
             w = 36

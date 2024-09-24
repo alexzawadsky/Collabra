@@ -34,21 +34,15 @@ export default {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
             },
             width: {
-                slot: 'calc(100dvw - 84px)',
+                slot: 'calc(100vw - 72px)',
             },
             maxWidth: {
-                slot: 'calc(100dvw - 84px)',
+                slot: 'calc(100vw - 72px)',
                 screen: '100vw',
             },
-            minHeight: {
-                slot: 'calc(100dvh - 72px)',
-            },
-            maxHeight: {
-                slot: 'calc(100dvh - 72px)',
-            },
             spacing: {
-                nav: '84px',
-                'nav-half': '42px',
+                nav: '72px',
+                'nav-half': '36px',
             },
         },
     },

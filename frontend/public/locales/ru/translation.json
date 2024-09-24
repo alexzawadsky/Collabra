@@ -144,6 +144,8 @@
   "save_changes": "Сохранить изображение",
   "saving": "Сохранение...",
   "search": "Поиск",
+  "select": "",
+  "select_assignee": "",
   "select_auto_time": "Выбрать автоматически",
   "send": "Отправить",
   "send_to_review": "Отправить на ревью",

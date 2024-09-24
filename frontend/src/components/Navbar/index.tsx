@@ -60,8 +60,7 @@ const Navbar = (): React.ReactElement => {
     return (
         <nav
             className={cn(
-                'w-full md:w-fit max-w-full md:max-w-nav hover:md:max-w-[300px] md:h-[calc(100dvh-24px)]',
-                'grid grid-cols-[1fr_1fr] md:flex flex-col gap-3 p-3 hover:md:px-5 md:mt-3 md:ml-3 fixed z-[999] bg-white dark:bg-slate-800 top-0 group/navbar transition-all shadow-md hover:md:shadow-xl outline outline-1 outline-gray-100 duration-150 overflow-x-hidden overflow-y-hidden md:overflow-y-auto rounded-b-md md:rounded-xl',
+                'navbar-area grid w-fit max-w-full hover:md:max-w-[300px] md:max-w-nav max-md:w-full grid-cols-[1fr_1fr] md:flex flex-col gap-3 p-3 hover:md:px-5 md:h-full fixed z-[999] bg-white dark:bg-slate-800 top-0 group/navbar transition-all shadow-md hover:md:shadow-xl outline-1 duration-150 overflow-x-hidden overflow-y-hidden md:overflow-y-auto',
                 open ? 'max-md:max-h-full' : 'max-md:max-h-nav'
             )}
             ref={navbarRef}

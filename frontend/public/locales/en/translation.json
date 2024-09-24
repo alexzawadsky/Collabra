@@ -147,6 +147,8 @@
   "saving": "Saving...",
   "search": "Search",
   "search_team": "Search team...",
+  "select": "Select",
+  "select_assignee": "Select assignee",
   "select_auto_time": "Select automatically",
   "send": "Send",
   "send_to_review": "Send to review",

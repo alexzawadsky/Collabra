@@ -4,17 +4,21 @@ import useScreenSize from '../../hooks/useScreenSize'
 import { Button } from '../index'
 import { useTranslation } from 'react-i18next'
 import { IoCheckmark } from 'react-icons/io5'
+import cn from 'classnames'
+import useInput from '../../hooks/useInput'
 
 type DropdownProps<T> = {
-    values: Record<string, T>
+    values: Record<string | number, T>
     cols?: number
     renderOption: (value: T, isSelected: boolean) => React.ReactNode
-    renderSelected: (value: T, isOpen: boolean) => React.ReactNode
-    selected: string
-    setSelected:
-        | React.Dispatch<React.SetStateAction<string>>
-        | React.Dispatch<React.SetStateAction<string | null>>
+    renderSelected: (value: T) => React.ReactNode
+    selected: string | number | undefined | null
+    setSelected: React.Dispatch<
+        React.SetStateAction<string | number | null | undefined>
+    >
     title?: string
+    notSelectedPlaceholder?: React.ReactNode
+    openTop?: boolean
 }
 
 const Dropdown = <T,>({
@@ -25,6 +29,8 @@ const Dropdown = <T,>({
     selected,
     setSelected,
     title,
+    notSelectedPlaceholder,
+    openTop,
 }: DropdownProps<T>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
@@ -32,7 +38,7 @@ const Dropdown = <T,>({
     const { isTablet } = useScreenSize()
     const { t } = useTranslation()
 
-    const selectedValue = values[selected]
+    const selectedValue = selected ? values[selected] : null
 
     const handleSelect = (key: string) => {
         setSelected(key)
@@ -56,10 +62,14 @@ const Dropdown = <T,>({
     return (
         <div className="relative" ref={dropdownRef} key={`${isTablet}`}>
             <div
-                className="min-h-10"
+                className="min-h-10 flex items-center"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
-                {renderSelected(selectedValue, isOpen)}
+                {selectedValue
+                    ? renderSelected(selectedValue)
+                    : notSelectedPlaceholder
+                      ? notSelectedPlaceholder
+                      : t('select')}
             </div>
             <AnimatePresence>
                 {isOpen && (
@@ -105,7 +115,12 @@ const Dropdown = <T,>({
                             pointerEvents: isOpen ? 'auto' : 'none',
                             gridTemplateColumns: `repeat(${cols}, 1fr)`,
                         }}
-                        className="md:min-w-20 md:overflow-hidden fixed md:absolute left-0 max-md:right-0 max-md:max-h-fit md:left-0 md:top-12 origin-top-left max-md:bg-white md:dark:bg-white/5 backdrop-blur-2xl dark:bg-slate-900 dark:border-slate-800 border dark:border-0 md:divide-y dark:divide-gray-700 rounded-t-2xl md:rounded-lg max-md:shadow-[0_6px_20px_15px_rgba(0,0,0,0.2)] md:drop-shadow-md grid max-md:gap-1 max-md:p-1"
+                        className={cn(
+                            openTop
+                                ? 'md:bottom-12 origin-bottom-left'
+                                : 'md:top-12 origin-top-left',
+                            'max-h-52 overflow-y-auto md:min-w-20 fixed md:absolute left-0 max-md:right-0 max-md:max-h-fit md:left-0 max-md:bg-white md:dark:bg-white/5 backdrop-blur-2xl dark:bg-slate-900 dark:border-slate-800 border dark:border-0 md:divide-y dark:divide-gray-700 rounded-t-2xl md:rounded-lg max-md:shadow-[0_6px_20px_15px_rgba(0,0,0,0.2)] md:drop-shadow-md grid max-md:gap-1 max-md:p-1'
+                        )}
                     >
                         {!isTablet && title && (
                             <p className="text-sm font-bold px-3 py-2">

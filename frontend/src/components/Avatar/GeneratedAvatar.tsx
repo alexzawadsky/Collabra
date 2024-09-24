@@ -6,7 +6,13 @@ export interface GeneratedAvatarProps {
     lastName: string
     startColor: string
     endColor: string
-    size?: 'sidebar' | 'profile' | 'settings' | 'task' | string
+    size?:
+        | 'sidebar'
+        | 'profile'
+        | 'settings'
+        | 'task'
+        | 'assigneeOption'
+        | string
     square?: boolean
     style: { string: any } | undefined
     className?: string
@@ -38,6 +44,9 @@ const GeneratedAvatar = ({
             break
         case 'task':
             font = 12
+            break
+        case 'assigneeOption':
+            font = 10
             break
         default:
             font = 16

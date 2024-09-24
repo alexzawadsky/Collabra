@@ -11,8 +11,9 @@ import { useTranslation } from 'react-i18next'
 import React, { SetStateAction, useState } from 'react'
 import useInput from '../../../../hooks/useInput'
 import TagSelector from './TagSelector'
-import { Step, Tag, Task } from '../../../../types'
+import { Member, Step, Tag, Task } from '../../../../types'
 import { objectsDifference } from '../../../../utils'
+import AssigneeSelector from './AssigneeSelector'
 
 interface AddTaskDialogProps {
     icon: React.ReactNode | React.ReactElement
@@ -52,6 +53,9 @@ const AddTaskDialog = ({
     const [selectedTag, setSelectedTag] = useState<Tag | null | undefined>(
         initialTask?.tag
     )
+    const [assignee, setAssignee] = useState<number | undefined | null>(
+        initialTask?.assignee.id
+    )
 
     const addStep = () => {
         if (nextStep.value.trim() === '') return
@@ -66,9 +70,10 @@ const AddTaskDialog = ({
     const clearForm = () => {
         title.clear()
         description.clear()
-        setSelectedTag(undefined)
+        setSelectedTag(null)
         setRequiresReview(false)
         setSteps([])
+        setAssignee(null)
     }
 
     const formData = {
@@ -78,11 +83,16 @@ const AddTaskDialog = ({
         tag: selectedTag,
         status: status || initialTask?.status,
         steps: steps,
+        assignee: assignee,
     }
 
     const diff = objectsDifference(initialTask || {}, formData)
     const canSave =
-        Object.keys(diff).length > 0 && title.allValid && description.allValid
+        Object.keys(diff).length > 0 &&
+        title.allValid &&
+        description.allValid &&
+        assignee !== null &&
+        selectedTag !== null
 
     return (
         <DialogWindow
@@ -143,6 +153,10 @@ const AddTaskDialog = ({
                         ))}
                     </ul>
                 )}
+                <AssigneeSelector
+                    assignee={assignee}
+                    setAssignee={setAssignee}
+                />
                 <Checkbox
                     value={requiresReview}
                     text={t('requires_review')}

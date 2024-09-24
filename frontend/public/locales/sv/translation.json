@@ -147,6 +147,8 @@
   "saving": "Sparar...",
   "search": "Söka",
   "search_team": "Sök team...",
+  "select": "Välj",
+  "select_assignee": "",
   "select_auto_time": "Välj automatiskt",
   "send": "Skicka",
   "send_to_review": "Skicka till granskning",
